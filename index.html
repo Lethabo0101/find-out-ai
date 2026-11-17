@@ -1,52 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Find Out AI - By Lethabo Modiba</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find Out AI</title>
 <style>
-body{font-family:Arial,sans-serif;background:#0f0f1a;color:white;text-align:center;padding:20px;margin:0}
-.box{max-width:600px;margin:0 auto;background:#1e1e35;padding:25px;border-radius:20px;box-shadow:0 0 20px #ff0085}
-h1{font-size:32px;margin:5px}h1 span{color:#ff0085}
-p{color:#ccc}
-input{width:90%;padding:15px;border-radius:10px;border:none;font-size:16px;margin:10px 0}
-button{background:#ff0085;color:white;border:none;padding:15px 30px;border-radius:10px;font-size:16px;cursor:pointer}
-button:hover{background:#ff3386}
-#answer{background:#2a2a4a;padding:15px;border-radius:10px;margin-top:15px;text-align:left}
-#count{color:#ffcc00;font-weight:bold}
-#paywall{display:none;font-weight:bold;background:#ff0085;padding:20px;border-radius:15px;margin-top:15px}
-#paywall a{display:block;background:white;color:#ff0085;padding:12px;border-radius:10px;text-decoration:none;margin-top:10px;font-size:18px}
-.small{font-size:12px;color:#888;margin-top:20px}
-.pay-btn{display:block;background:#00c853;color:white;padding:15px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:20px;margin-top:15px}
+body{background:#0f172a;font-family:Arial;color:white;text-align:center;padding:20px}
+.box{background:#1e293b;max-width:600px;margin:auto;padding:25px;border-radius:20px;border:3px solid #ec4899}
+input{width:90%;padding:15px;border-radius:10px;border:none;font-size:16px}
+button{padding:15px 25px;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
+.ask{background:#f472b6;color:white}
+.pay{background:#10b981;color:white;width:95%;font-size:18px}
+#answer{background:#334155;padding:15px;border-radius:10px;margin-top:15px;text-align:left;min-height:60px;white-space:pre-wrap}
 </style>
 </head>
 <body>
 <div class="box">
-<h1>Find Out <span>AI</span> 🤖</h1>
+<h1>Find Out <span style="color:#f97316">AI</span> 🤖</h1>
 <p>Ask ANYTHING, Get Answers FAST! Your Smart AI Friend Made With ❤️ By Lethabo Modiba</p>
-<p id="count">You have 3 FREE questions left!</p>
+<p id="left" style="color:#facc15;font-weight:bold">You have 3 FREE questions left!</p>
 <input id="q" placeholder="Type your question here...">
-<br><button onclick="ask()">Ask AI ✨</button>
+<br><button class="ask" onclick="ask()">Ask AI ✨</button>
 <div id="answer">Your answer will appear here...</div>
-<div id="paywall">
-🔒 You've used your 3 FREE questions!
-Unlock UNLIMITED Find Out AI for R50
-<a href="https://pay.capitecbank.co.za/payme/J6B2JU">PAY R50 WITH CAPITEC 💳</a>
-<p style="font-size:12px;color:white;">After paying, screenshot & WhatsApp us to unlock!</p>
-</div>
-<a class="pay-btn" href="https://pay.capitecbank.co.za/payme/J6B2JU">PAY R50 WITH CAPITEC</a>
-<p class="small">Knowledge, Fun & Answers For Everyone!</p>
+<br><button class="pay" onclick="window.open('https://pay.capitecbank.co.za','_blank')">PAY R50 WITH CAPITEC</button>
+<p><small>Knowledge, Fun & Answers For Everyone!</small></p>
 </div>
 <script>
-let left=3;
-function ask(){
-let q=document.getElementById('q').value;
-if(!q) return alert('Type a question first!');
-if(left<=0){document.getElementById('paywall').style.display='block';return;}
-left--;
-document.getElementById('count').innerText='You have '+left+' FREE questions left!';
-document.getElementById('answer').innerText='Find Out AI is thinking about: "'+q+'" ... This is a demo - connect your AI soon!';
-if(left==0) document.getElementById('paywall').style.display='block';
+let count = localStorage.getItem('count');
+if(count===null){count=3; localStorage.setItem('count',3);}
+function update(){document.getElementById('left').innerText = "You have " + count + " FREE questions left!";}
+update();
+async function ask(){
+let question = document.getElementById('q').value;
+if(!question){alert("Type a question first!"); return;}
+if(count<=0){alert("You used your free questions! Please PAY R50 to continue."); return;}
+document.getElementById('answer').innerText = "Find Out AI is thinking...";
+try{
+let prompt = encodeURIComponent("You are Find Out AI, a friendly smart AI created by Lethabo Modiba from South Africa. Answer simply and clearly for a student in South Africa. Question: " + question);
+let res = await fetch("https://text.pollinations.ai/" + prompt);
+let text = await res.text();
+document.getElementById('answer').innerText = text;
+count--; localStorage.setItem('count',count); update();
+}catch(e){document.getElementById('answer').innerText = "Oops! Internet error. Try again.";}
 }
 </script>
 </body>
