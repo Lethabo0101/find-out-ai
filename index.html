@@ -6,64 +6,47 @@
 <title>Find Out AI - By Lethabo Modiba</title>
 <style>
 body{font-family:Arial,sans-serif;background:#0f0f1a;color:white;text-align:center;padding:20px;margin:0}
-.box{max-width:600px;margin:0 auto;background:#1e1e35;padding:25px;border-radius:20px;box-shadow:0 0 20px #ff0055}
-h1{font-size:32px;margin:5px}h1 span{color:#ff0055}
+.box{max-width:600px;margin:0 auto;background:#1e1e35;padding:25px;border-radius:20px;box-shadow:0 0 20px #ff0085}
+h1{font-size:32px;margin:5px}h1 span{color:#ff0085}
 p{color:#ccc}
 input{width:90%;padding:15px;border-radius:10px;border:none;font-size:16px;margin:10px 0}
-button{background:#ff0055;color:white;border:none;padding:15px 30px;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;width:95%}
-button:hover{background:#ff3366}
-#answer{background:#2a2a4a;padding:15px;border-radius:10px;margin-top:15px;text-align:left;min-height:60px;white-space:pre-wrap}
+button{background:#ff0085;color:white;border:none;padding:15px 30px;border-radius:10px;font-size:16px;cursor:pointer}
+button:hover{background:#ff3386}
+#answer{background:#2a2a4a;padding:15px;border-radius:10px;margin-top:15px;text-align:left}
 #count{color:#ffcc00;font-weight:bold}
-#paywall{display:none;background:#ff0055;padding:20px;border-radius:15px;margin-top:15px}
-#paywall a{display:block;background:white;color:#ff0055;padding:12px;border-radius:10px;text-decoration:none;font-weight:bold;margin-top:10px}
+#paywall{display:none;font-weight:bold;background:#ff0085;padding:20px;border-radius:15px;margin-top:15px}
+#paywall a{display:block;background:white;color:#ff0085;padding:12px;border-radius:10px;text-decoration:none;margin-top:10px;font-size:18px}
 .small{font-size:12px;color:#888;margin-top:20px}
+.pay-btn{display:block;background:#00c853;color:white;padding:15px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:20px;margin-top:15px}
 </style>
 </head>
 <body>
 <div class="box">
-<h1>🔥 FIND OUT <span>AI</span> 🔥</h1>
-<p>Ask Anything. Know Everything.<br>Made With ❤️ By Lethabo Modiba</p>
-<p id="count">You have 10 FREE questions left</p>
-<input id="q" placeholder="Ask me anything... e.g How do I make money?">
-<button onclick="ask()">ASK AI 🚀</button>
+<h1>Find Out <span>AI</span> 🤖</h1>
+<p>Ask ANYTHING, Get Answers FAST! Your Smart AI Friend Made With ❤️ By Lethabo Modiba</p>
+<p id="count">You have 3 FREE questions left!</p>
+<input id="q" placeholder="Type your question here...">
+<br><button onclick="ask()">Ask AI ✨</button>
 <div id="answer">Your answer will appear here...</div>
 <div id="paywall">
-<h2>🔒 FREE QUESTIONS FINISHED!</h2>
-<p>Pay R20 to unlock UNLIMITED questions!</p>
-<a href="https://wa.me/27600000000?text=Hi%20Lethabo%20I%20want%20to%20pay%20R20%20for%20Find%20Out%20AI">PAY R20 ON WHATSAPP 💰</a>
-<p>After you pay, Lethabo will give you your unlock code.</p>
-<input id="code" placeholder="Enter unlock code here">
-<button onclick="unlock()" style="background:white;color:#ff0055">UNLOCK NOW</button>
+🔒 You've used your 3 FREE questions!
+Unlock UNLIMITED Find Out AI for R50
+<a href="https://pay.capitecbank.co.za/payme/J6B2JU">PAY R50 WITH CAPITEC 💳</a>
+<p style="font-size:12px;color:white;">After paying, screenshot & WhatsApp us to unlock!</p>
 </div>
-<p class="small">© 2026 Find Out AI - Lethabo Modiba</p>
+<a class="pay-btn" href="https://pay.capitecbank.co.za/payme/J6B2JU">PAY R50 WITH CAPITEC</a>
+<p class="small">Knowledge, Fun & Answers For Everyone!</p>
 </div>
 <script>
-let left = 10;
-const answers = [
-"Great question! Here is what I found: The secret is to start small, stay consistent, and never give up. People who win are the ones who keep going when others stop. You got this!",
-"Okay listen! This is important: Focus on ONE thing at a time. Don't try to do everything. Pick one idea, work on it every day for 30 days, and you will see results.",
-"Find Out AI says: Yes, you can do it! First step: Write down your goal. Second step: Break it into small pieces. Third step: Do ONE small piece TODAY. Don't wait for tomorrow!",
-"Here's the truth: Money comes from solving problems for people. What problem can YOU solve? If you help people, they will pay you. Think about what you are good at!",
-"My AI brain says: Don't compare yourself to others. Your journey is YOUR journey. Start where you are, use what you have, do what you can. You are already ahead because you are asking!",
-"Wow, good question! The answer is: Learn every day. Read, watch videos, ask questions like this. Knowledge is power. The more you know, the more money you can make."
-];
+let left=3;
 function ask(){
 let q=document.getElementById('q').value;
-if(!q){document.getElementById('answer').innerText="Please type a question first, boss! 😊";return;}
+if(!q) return alert('Type a question first!');
 if(left<=0){document.getElementById('paywall').style.display='block';return;}
 left--;
-document.getElementById('count').innerText="You have "+left+" FREE questions left";
-document.getElementById('answer').innerText="Thinking... 🤔";
-setTimeout(()=>{
-let r=answers[Math.floor(Math.random()*answers.length)];
-document.getElementById('answer').innerText="Q: "+q+"\n\nA: "+r+"\n\n— Find Out AI 🔥";
-if(left<=0){document.getElementById('paywall').style.display='block';}
-},1000);
-}
-function unlock(){
-let c=document.getElementById('code').value;
-if(c==="LETHABO2026"){left=1000;document.getElementById('count').innerText="UNLOCKED! Unlimited questions! 🔥";document.getElementById('paywall').style.display='none';alert("Welcome to VIP! You are unlocked!");}
-else{alert("Wrong code. Pay R20 on WhatsApp to get your code!");}
+document.getElementById('count').innerText='You have '+left+' FREE questions left!';
+document.getElementById('answer').innerText='Find Out AI is thinking about: "'+q+'" ... This is a demo - connect your AI soon!';
+if(left==0) document.getElementById('paywall').style.display='block';
 }
 </script>
 </body>
